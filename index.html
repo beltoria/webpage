@@ -406,23 +406,27 @@
     <!-- end of testimonial section -->
 
     <!-- contact section -->
+    
     <section class = "contact" id = "contact">
+      
       <div class = "container">
         <div class = "title">
           <h2 class = "wow animate__animated animate__bounceIn animate__slow">Свяжитесь с нами</h2>
           <p class = "text">Lorem ipsum dolor sit amet consectetur</p>
         </div>
-
         <div class = "row wow animate__animated animate__fadeInUp animate__slow">
           <div class = "contact-left">
             <h2>Написать сообщение</h2>
-            <form>
-              <input type = "text" class = "form-control" placeholder="Имя">
-              <input type = "email" class = "form-control" placeholder="Email">
-              <textarea placeholder="Сообщение" rows = "6"></textarea>
-              <button type = "submit" class = "submit-btn">Отправить</button>
+            <form enctype="multipart/form-data" method="post" onsubmit="submitForm(event)" action="email.php" id="form">
+              <input required type="text" name="name" id="name" class="form-control" placeholder="Имя">
+              <input required type="email" name="email" id="email" class="form-control" placeholder="Email">
+              <textarea name="message" placeholder="Сообщение" rows="6"></textarea>
+              <button type="submit" name="button" id="button" class="submit-btn">Отправить</button>
             </form>
-          </div>
+            
+            <div id="message"></div>
+            
+            </div>
 
           <div class = "contact-right">
             <div>
@@ -440,6 +444,39 @@
           </div>
         </div>
       </div>
+
+      <script>
+      // send mail
+      async function submitForm(event) {
+          event.preventDefault();
+        
+          const form = document.getElementById('form');
+          const formData = new FormData(form);
+        
+          try {
+            const response = await fetch('email.php', {
+              method: 'POST',
+              body: formData
+            });
+        
+            const result = await response.json();
+            const messageDiv = document.getElementById('message');
+        
+            if (response.ok) {
+              messageDiv.textContent = result.message;
+              messageDiv.style.color = 'green';
+            } else {
+              messageDiv.textContent = 'Error: ' + result.message;
+              messageDiv.style.color = 'red';
+            }
+          } catch (error) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.textContent = 'An error occurred while sending the message.';
+            messageDiv.style.color = 'red';
+          }
+      }  
+    </script>
+    
     </section>
     <!-- end of contact section -->
 
