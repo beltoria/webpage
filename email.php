@@ -13,8 +13,8 @@ $mail->SMTPAuth   = true;
 //$mail->SMTPDebug = 2;
 $mail->Debugoutput = function($str, $level) {$GLOBALS['data']['debug'][] = $str;};
 $mail->Host='smtp.yandex.ru';
-$mail->Username='genericmail666@yandex.ru';
-$mail->Password='vfcgtwzfqklsrbwx';
+$mail->Username='';
+$mail->Password='';
 $mail->SMTPSecure='ssl';
 $mail->Port=465;
 
@@ -31,7 +31,7 @@ $body = str_replace('%name%', $name, $body);
 $body = str_replace('%email%', $email, $body);
 $body = str_replace('%message%', $message, $body);
 
-$mail->addAddress("genericmail666@yandex.ru"); 
+$mail->addAddress(""); 
 $mail->setFrom($email);
 $mail->Subject = "[Заявка с формы]";
 $mail->MsgHTML($body);
